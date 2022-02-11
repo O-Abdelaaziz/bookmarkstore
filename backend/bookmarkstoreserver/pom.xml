@@ -12,7 +12,7 @@
     <artifactId>bookmarkstoreserver</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>bookmarkstoreserver</name>
-    <description>Demo project for Spring Boot</description>
+    <description>bookmark store application using spring boot application</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
