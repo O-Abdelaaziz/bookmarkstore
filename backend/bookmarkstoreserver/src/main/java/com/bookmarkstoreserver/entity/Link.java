@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "links")
 public class Link extends BaseEntity {
-
     //region Simple Properties
     @Column(name = "title")
     private String title;
@@ -63,5 +62,8 @@ public class Link extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToOne(mappedBy = "link")
+    private LinkMetaAttribute linkMetaAttribute;
     //endregion
 }
