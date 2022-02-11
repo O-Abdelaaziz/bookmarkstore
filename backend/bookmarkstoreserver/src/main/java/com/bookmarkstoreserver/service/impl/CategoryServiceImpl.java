@@ -3,6 +3,7 @@ package com.bookmarkstoreserver.service.impl;
 import com.bookmarkstoreserver.entity.Category;
 import com.bookmarkstoreserver.repositoy.CategoryRepository;
 import com.bookmarkstoreserver.service.ICategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +19,16 @@ import lombok.RequiredArgsConstructor;
  * @Author Abdelaaziz Ouakala
  **/
 
-@RequiredArgsConstructor
 @Transactional
 @Service
 public class CategoryServiceImpl implements ICategoryService {
 
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     public List<Category> findAll() {
