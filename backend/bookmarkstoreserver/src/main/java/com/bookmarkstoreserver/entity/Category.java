@@ -1,6 +1,7 @@
 package com.bookmarkstoreserver.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 import com.bookmarkstoreserver.entity.common.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,15 +25,19 @@ import java.util.List;
 @Table(name = "categories")
 public class Category extends BaseEntity {
     //region Simple Properties
+    @NotBlank(message = "name cannot be empty")
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NotBlank
     @Column(name = "description", nullable = true)
     private String description;
 
+    @NotBlank
     @Column(name = "color", nullable = false)
     private String color;
 
+    @NotBlank
     @Column(name = "icon", nullable = false)
     private String icon;
 

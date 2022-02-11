@@ -1,6 +1,8 @@
 package com.bookmarkstoreserver.service.impl;
 
 import com.bookmarkstoreserver.entity.Category;
+import com.bookmarkstoreserver.exception.custom.ResourceAlreadyExistsException;
+import com.bookmarkstoreserver.exception.custom.ResourceNotFoundException;
 import com.bookmarkstoreserver.repositoy.CategoryRepository;
 import com.bookmarkstoreserver.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +42,19 @@ public class CategoryServiceImpl implements ICategoryService {
         if (uid.isEmpty()) {
             throw new IllegalArgumentException("uid cannot be empty");
         }
-        return categoryRepository.findByUid(uid);
+        Category category = categoryRepository.findByUid(uid);
+        if (category == null) {
+            throw new ResourceNotFoundException("Cannot find category with uid: " + uid);
+        }
+        return category;
     }
 
     @Override
     public Category save(Category category) {
+        Category categoryNameAlreadyExist = categoryRepository.findByNameContainingIgnoreCase(category.getName());
+        if (categoryNameAlreadyExist != null) {
+            throw new ResourceAlreadyExistsException(String.format("Category with provided name: %s, already exist" , category.getName()));
+        }
         return categoryRepository.save(category);
     }
 
