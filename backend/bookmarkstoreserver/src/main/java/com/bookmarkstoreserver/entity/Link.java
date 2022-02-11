@@ -2,6 +2,7 @@ package com.bookmarkstoreserver.entity;
 
 import javax.persistence.*;
 
+import com.bookmarkstoreserver.entity.common.BaseEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -18,13 +19,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "links")
-public class Link {
+public class Link extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    private Long id;
-
+    //region Simple Properties
     @Column(name = "title")
     private String title;
 
@@ -55,19 +52,16 @@ public class Link {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @Column(name = "created_date")
-    private LocalDateTime createdDate;
-
-    @Column(name = "updated_date")
-    private LocalDateTime updatedDate;
-
     @Column(name = "deleted_date")
     private LocalDateTime deletedDate;
 
     @Column(name = "archived_date")
     private LocalDateTime archivedDate;
+    //endregion
 
+    //region Complex Properties
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
+    //endregion
 }

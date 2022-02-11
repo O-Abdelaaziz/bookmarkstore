@@ -2,6 +2,7 @@ package com.bookmarkstoreserver.entity;
 
 import javax.persistence.*;
 
+import com.bookmarkstoreserver.entity.common.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -21,13 +22,9 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "categories")
-public class Category {
+public class Category extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    private Long id;
-
+    //region Simple Properties
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -40,12 +37,6 @@ public class Category {
     @Column(name = "icon", nullable = false)
     private String icon;
 
-    @Column(name = "created_date")
-    private LocalDateTime createdDate;
-
-    @Column(name = "updated_date")
-    private LocalDateTime updatedDate;
-
     @Column(name = "deleted_date")
     private LocalDateTime deletedDate;
 
@@ -53,11 +44,14 @@ public class Category {
     @JoinColumn(name="parent_id")
     @JsonIgnore
     private Category parentId;
+    //endregion
 
+    //region Complex Properties
     @OneToMany(mappedBy="parentId")
     private List<Category> subCategories=new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "category", orphanRemoval = true, targetEntity = Link.class)
     @OrderColumn(name = "id")
     private List<Link> linkList=new ArrayList<>();
+    //endregion
 }
