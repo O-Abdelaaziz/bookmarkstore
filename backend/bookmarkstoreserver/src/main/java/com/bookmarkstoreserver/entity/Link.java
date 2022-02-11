@@ -22,6 +22,7 @@ public class Link {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
     @Column(name = "title")
@@ -38,9 +39,6 @@ public class Link {
 
     @Column(name = "view_count")
     private Integer viewCount;
-
-    @Column(name = "category")
-    private String category;
 
     @Column(name = "metadata")
     private String metadata;
@@ -69,5 +67,7 @@ public class Link {
     @Column(name = "archived_date")
     private LocalDateTime archivedDate;
 
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private Category category;
 }
