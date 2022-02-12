@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 
 import com.bookmarkstoreserver.entity.common.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -23,6 +24,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "categories")
+@ApiModel(description = "Category model information")
 public class Category extends BaseEntity {
     //region Simple Properties
     @NotBlank(message = "name cannot be empty")

@@ -3,6 +3,7 @@ package com.bookmarkstoreserver.entity;
 import javax.persistence.*;
 
 import com.bookmarkstoreserver.entity.common.BaseEntity;
+import io.swagger.annotations.ApiModel;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "links")
+@ApiModel(description = "Link model information")
 public class Link extends BaseEntity {
     //region Simple Properties
     @Column(name = "title")
