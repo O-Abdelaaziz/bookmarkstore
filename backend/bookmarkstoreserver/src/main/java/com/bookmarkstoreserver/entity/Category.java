@@ -10,7 +10,9 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Created 11/02/2022 - 09:47
@@ -46,18 +48,19 @@ public class Category extends BaseEntity {
     @Column(name = "deleted_date")
     private LocalDateTime deletedDate;
 
-    @ManyToOne
-    @JoinColumn(name="parent_id")
-    @JsonIgnore
-    private Category parentId;
+    @OneToOne
+    @JoinColumn(name = "parent_id")
+    private Category parent;
     //endregion
 
     //region Complex Properties
-    @OneToMany(mappedBy="parentId")
-    private List<Category> subCategories=new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "parent")
+    private Set<Category> subCategories = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "category", orphanRemoval = true, targetEntity = Link.class)
+    @JsonIgnore
     @OrderColumn(name = "id")
-    private List<Link> linkList=new ArrayList<>();
+    private List<Link> linkList = new ArrayList<>();
     //endregion
 }

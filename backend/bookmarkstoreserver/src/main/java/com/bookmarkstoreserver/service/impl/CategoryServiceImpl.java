@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import lombok.RequiredArgsConstructor;
-
 /**
  * @Created 11/02/2022 - 11:35
  * @Package com.bookmarkstoreserver.service.impl
@@ -65,7 +63,7 @@ public class CategoryServiceImpl implements ICategoryService {
         getCategory.setDescription(category.getDescription());
         getCategory.setColor(category.getColor());
         getCategory.setIcon(category.getIcon());
-        getCategory.setParentId(category.getParentId());
+        getCategory.setParent(category.getParent());
         Category updatedCategory = categoryRepository.save(getCategory);
         return updatedCategory;
     }
